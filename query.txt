@@ -1,0 +1,13 @@
+Book.query.all()
+b = Book.query.all()
+Publication.query.all()
+Publication.query.all()[:3]
+--------------------------------
+c = Book.query.filter_by(format='ePub')
+c = Book.query.filter_by(format='ePub').all()
+c = Book.query.filter_by(format='ePub').first()
+--------------------------------
+d = Book.query.order_by(Book.title).all()
+e = Book.query.filter_by(pub_id=1).order_by(Book.title).all()
+f = Publication.query.get(1)
+Book.query.limit(5).all()
