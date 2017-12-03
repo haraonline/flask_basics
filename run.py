@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, render_template, request, session, g
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
@@ -13,18 +13,23 @@ app.config.update(
 db = SQLAlchemy(app)
 
 
+@app.before_request
+def some_function():
+    g.string = '<br> This code ran before any request'
+
+
 # BASIC ROUTE
 @app.route('/index')
 @app.route('/')
 def hello_flask():
-    return 'Hello Flask!'
+    return 'Hello Flask! <br>' + g.string
 
 
 # QUERY STRINGS
 @app.route('/new/')
 def query_strings(greeting='hello'):
     query_val = request.args.get('greeting', greeting)
-    return '<h1> the greeting is : {0} </h1>'.format(query_val)
+    return '<h1> the greeting is : {0} </h1>'.format(query_val) + g.string
 
 
 # REMOVE QUERY STRINGS
@@ -121,6 +126,13 @@ def jinja_macros():
                            movies=movies_dict)
 
 
+@app.route('/session')
+def session_data():
+    if 'name' not in session:
+        session['name'] = 'harry'
+    return render_template('session.html', name=session['name'], session=session)
+
+
 class Publication(db.Model):
     __tablename__ = 'publication'
 
@@ -150,7 +162,6 @@ class Book(db.Model):
     pub_id = db.Column(db.Integer, db.ForeignKey('publication.id'))
 
     def __init__(self, title, author, avg_rating, book_format, image, num_pages, pub_id):
-
         self.title = title
         self.author = author
         self.avg_rating = avg_rating
