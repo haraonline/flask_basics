@@ -71,7 +71,7 @@ def using_templates():
 
 # JINJA TEMPLATES
 @app.route('/watch')
-def movies_2017():
+def top_movies():
     movie_list = ['autopsy of jane doe',
                   'neon demon',
                   'ghost in a shell',
