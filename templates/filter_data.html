@@ -8,23 +8,24 @@
     <body>
         <h2>working with jinja2 filters</h2>
 
-        {% for movie, duration in  movies|dictsort (false, 'value') %}
-            <ul>
-                <li>{{ movie|title }} : {{ duration|round(1) }}</li>
-            </ul>
-        {% endfor %}
+        <ul>
+            {% for movie, duration in  movies|dictsort (false, 'value') %}
+                <li> {{ movie|title }} : {{ duration|round(1) }} </li>
+            {% endfor %}
+        </ul>
 
         <hr>
 
         <ol type="1">
-            <li> default value      : {{ name|default('value not defined', true) }}</li> <br>
-            <li> capital case       : {{ film|capitalize }}</li> <br>
-            <li> length             : {{ movies|length }} items in the dictionary </li> <br>
-            <li> first item         : {{ movies|first }}</li> <br>
-            <li> make a list        : {{ film|list }}</li> <br>
-            <li> replace data       : {{ film|replace('carol', 'cookie')|upper }}</li>
+            <li> default value   : {{ name|default('value not defined', true) }}</li> <br>
+            <li> capital case    : {{ film|capitalize }}</li> <br>
+            <li> length          : {{ movies|length }} items in the dictionary </li> <br>
+            <li> first item      : {{ movies|first }}</li> <br>
+            <li> make a list     : {{ film|list }}</li> <br>
+            <li> replace data    : {{ film|replace('carol', 'cookie')|upper }}</li>
         </ol>
         <hr>
+
         {{ data }}
 
 
